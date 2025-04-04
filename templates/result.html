@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Diagnosis Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='result.css') }}">
+</head>
+<body class="result-body">
+    <h2 class="result-heading">Prediction Result</h2>  <!-- Moved outside the container -->
+
+    <div class="result-container">
+        <h3>Disease: {{ result.disease }}</h3>
+        <p><strong>Description:</strong> {{ result.description }}</p>
+
+        <h4>Precautions:</h4>
+        <ul class="result-list">
+            {% for p in result.precaution %}
+            <li>{{ p }}</li>
+            {% endfor %}
+        </ul>
+
+        <h4>Medications:</h4>
+        <ul class="result-list">
+            {% for m in result.medications %}
+            <li>{{ m }}</li>
+            {% endfor %}
+        </ul>
+
+        <h4>Workouts:</h4>
+        <ul class="result-list">
+            {% for w in result.workouts %}
+            <li>{{ w }}</li>
+            {% endfor %}
+        </ul>
+
+        <h4>Diet:</h4>
+        <ul class="result-list">
+            {% for d in result.diet %}
+            <li>{{ d }}</li>
+            {% endfor %}
+        </ul>
+
+        <a href="/" class="result-btn">Try Again</a>
+    </div>
+</body>
+
+</html>

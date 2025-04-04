@@ -1,0 +1,134 @@
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to right, #e0c3fc, #8ec5fc);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Container */
+.container {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+}
+
+/* Heading */
+h2 {
+    color: #6a5acd;
+    margin-bottom: 15px;
+}
+
+/* Label Styling (Left-aligned) */
+label[for="symptom-search"] {
+    font-size: 16px;
+    color: #444;
+    margin-bottom: 10px;
+    width: 100%;  /* Ensures it spans full width */
+    text-align: left;  /* Aligns text to the left */
+}
+
+/* Form */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Search Box */
+#symptom-search {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+    margin-bottom: 5px;
+}
+
+/* Suggestions List */
+#suggestions {
+    list-style: none;
+    padding: 0;
+    margin-top: 5px;
+    width: 100%;
+    background: white;
+    border-radius: 6px;
+    max-height: 150px;
+    overflow-y: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: none;
+    position: absolute;
+    left: 0;
+    z-index: 9999;
+}
+
+#suggestions li {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+}
+
+#suggestions li:hover {
+    background: #f0f0f0;
+}
+
+
+/* Selected Symptoms */
+#selected-symptoms {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.selected-symptom {
+    display: inline-block;
+    background: linear-gradient(to right, #b08aff, #62a0ea);
+    color: white;
+    padding: 3px 8px;  /* Reduced padding */
+    border-radius: 25px; /* Slightly smaller border-radius */
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    align-items: center;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: block;
+    border: none;
+    cursor: pointer;
+}
+
+.remove-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 10px;
+    margin-left: 3px;
+    cursor: pointer;
+}
+
+/* Button */
+button {
+    padding: 12px 24px;
+    background-color: #6a5acd;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    margin-top: 15px;
+}
+
+button:hover {
+    background-color: #5a4aad;
+    transform: scale(1.05);
+}

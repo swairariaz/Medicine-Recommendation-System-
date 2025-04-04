@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disease Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        #suggestions {
+            list-style: none;
+            padding: 0;
+            margin: 5px 0 0 0;  /* Moves suggestions slightly below input */
+            width: 100%;  /* Ensures it matches the input field width */
+            background: white;
+            border-radius: 6px;
+            max-height: 150px;
+            overflow-y: auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: none;
+            position: absolute;
+            left: 0;
+            z-index: 9999;
+        }
+
+        #suggestions li {
+            padding: 10px;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
+        }
+
+        #suggestions li:hover {
+            background: #f0f0f0;
+        }
+
+        /* Ensure input container is positioned correctly */
+        .input-container {
+            position: relative;
+            width: 100%;  /* Ensures proper alignment */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Disease Predictor</h2>
+        <form id="predict-form" action="/predict" method="post">
+            <label for="symptom-search">Select your symptoms:</label>
+
+            <!-- Wrapped input in a container to fix position issues -->
+            <div class="input-container">
+                <input type="text" id="symptom-search" placeholder="Type your symptom..." autocomplete="off">
+                <ul id="suggestions"></ul>
+            </div>
+
+            <!-- Selected symptoms will be shown here -->
+            <div id="selected-symptoms"></div>
+
+            <!-- Hidden input field to store selected symptoms -->
+            <input type="hidden" name="symptoms" id="symptoms-input">
+
+            <button type="submit">Predict</button>
+        </form>
+    </div>
+
+    <script>
+        const symptoms = [{% for symptom in symptom_list %}"{{ symptom }}",{% endfor %}]; // Backend symptoms list
+        const searchInput = document.getElementById("symptom-search");
+        const suggestionsList = document.getElementById("suggestions");
+        const selectedSymptomsDiv = document.getElementById("selected-symptoms");
+        const symptomsInput = document.getElementById("symptoms-input");
+        const form = document.getElementById("predict-form");
+
+        let selectedSymptoms = [];
+
+        // Function to display search suggestions
+        searchInput.addEventListener("input", function () {
+            let query = searchInput.value.toLowerCase();
+            suggestionsList.innerHTML = "";
+
+            if (query.length > 0) {
+                let matches = symptoms.filter(symptom => symptom.toLowerCase().includes(query));
+
+                if (matches.length > 0) {
+                    suggestionsList.style.display = "block";
+                    matches.forEach(symptom => {
+                        let li = document.createElement("li");
+                        li.textContent = symptom;
+                        li.addEventListener("click", function () {
+                            addSymptom(symptom);
+                            searchInput.value = "";
+                            suggestionsList.style.display = "none";
+                        });
+                        suggestionsList.appendChild(li);
+                    });
+                } else {
+                    suggestionsList.style.display = "none";
+                }
+            } else {
+                suggestionsList.style.display = "none";
+            }
+        });
+
+        // Function to add a symptom to the selected list
+        function addSymptom(symptom) {
+            if (!selectedSymptoms.includes(symptom)) {
+                selectedSymptoms.push(symptom);
+                updateSelectedSymptoms();
+            }
+        }
+
+        // Function to update selected symptoms display
+        function updateSelectedSymptoms() {
+            selectedSymptomsDiv.innerHTML = "";
+            selectedSymptoms.forEach(symptom => {
+                let span = document.createElement("span");
+                span.textContent = symptom;
+                span.classList.add("selected-symptom");
+
+                let removeBtn = document.createElement("button");
+                removeBtn.textContent = "×";
+                removeBtn.classList.add("remove-btn");
+                removeBtn.addEventListener("click", function () {
+                    selectedSymptoms = selectedSymptoms.filter(s => s !== symptom);
+                    updateSelectedSymptoms();
+                });
+
+                span.appendChild(removeBtn);
+                selectedSymptomsDiv.appendChild(span);
+            });
+
+            // Send the symptoms as a JSON array (correct format for Flask)
+            symptomsInput.value = JSON.stringify(selectedSymptoms);
+        }
+
+        // Hide suggestions when clicking outside
+        document.addEventListener("click", function (e) {
+            if (!searchInput.contains(e.target) && !suggestionsList.contains(e.target)) {
+                suggestionsList.style.display = "none";
+            }
+        });
+
+        // Prevent form submission if no symptoms are selected
+        form.addEventListener("submit", function (event) {
+            if (selectedSymptoms.length === 0) {
+                event.preventDefault();
+                alert("Please select at least one symptom before predicting!");
+            }
+        });
+
+    </script>
+</body>
+</html>
+
