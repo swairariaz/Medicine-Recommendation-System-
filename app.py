@@ -78,14 +78,14 @@ def predict():
 
         selected_symptoms = json.loads(symptoms_raw)  # Convert JSON string to Python list
 
-        # ✅ Ensure valid symptoms
+
         valid_symptoms = [sym for sym in selected_symptoms if sym in symptom_columns]
         if not valid_symptoms:
             return render_template('result.html', error="Invalid symptoms selected. Please choose valid symptoms.")
 
         result = predict_disease(valid_symptoms)
 
-        # ✅ Return a JSON response (frontend must handle it)
+
         return render_template('result.html', result=result)
 
     except Exception as e:
