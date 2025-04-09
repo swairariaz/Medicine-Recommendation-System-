@@ -1,8 +1,14 @@
 ﻿# Medicine Recommendation System using Machine Learning
 
 Welcome to the **Medicine Recommendation System** — an intelligent web application built using **Python (Flask)** for the backend and **HTML, CSS, JavaScript** for the frontend. It allows users to input medical symptoms and receive a predicted disease along with detailed descriptions, precautions, medications, workouts, and diet recommendations.
+## 📺 Demo
 
-> 📺 [Watch Demo on YouTube](https://youtu.be/4rA8b2Zjwsk?si=l1SWaWOf9Aq0nvqY)  
+<p align="center">
+  <a href="https://youtu.be/4rA8b2Zjwsk?si=l1SWaWOf9Aq0nvqY">
+    <img src="https://img.youtube.com/vi/4rA8b2Zjwsk/0.jpg" alt="Watch on YouTube" width="700"/>
+  </a>
+</p>
+> Click the image to watch the full demo on YouTube.
 
 
 ---
