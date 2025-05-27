@@ -79,8 +79,6 @@ Welcome to the **Medicine Recommendation System** — an intelligent web applica
 
 ---
 
-## 🖥️ Run Locally
-
 ## 📚 Python Libraries Used
 
 ```txt
